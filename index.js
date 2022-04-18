@@ -12,9 +12,20 @@ const port = process.env.PORT || 8080;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-
+//API Endpoints
 app.get('/', (req, res) => {
   res.send('Welcome!!');
+});
+
+app.get('/clothes', (req, res) => {
+  Models.Clothes.find()
+  .then(clothes => {
+    res.status(200).json(clothes);
+  })
+  .catch(err => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
 });
 
 //Error handling
