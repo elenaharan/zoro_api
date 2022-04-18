@@ -1,9 +1,15 @@
 const express = require('express'),
   uui = require('uuid'),
-  bodyParser = require('body-parser');
+  bodyParser = require('body-parser'),
+  mongoose = require('mongoose');
+
+const Models = require('./database/models');
+
+mongoose.connect('mongodb://localhost:27017', {useNewURLParser: true, useUnifiedTopology: true});
 
 const app = express();
 const port = process.env.PORT || 8080;
+
 
 app.get('/', (req, res) => {
   res.send('Welcome!!');
