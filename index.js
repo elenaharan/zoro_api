@@ -1,7 +1,8 @@
 const express = require('express'),
   uui = require('uuid'),
   bodyParser = require('body-parser'),
-  mongoose = require('mongoose');
+  mongoose = require('mongoose'),
+  cors = require('cors');
 
 const Models = require('./database/models');
 
@@ -11,12 +12,14 @@ const app = express();
 const port = process.env.PORT || 8080;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cors());
 
 //API Endpoints
 app.get('/', (req, res) => {
   res.send('Welcome!!');
 });
 
+//API Endpoint that returns all clothes
 app.get('/clothes', (req, res) => {
   Models.Clothes.find()
   .then(clothes => {
@@ -27,6 +30,9 @@ app.get('/clothes', (req, res) => {
     res.status(500).send('Error: ' + err);
   });
 });
+
+//API Endpoint that returns single item
+//code here
 
 //Error handling
 app.use((err, req, res, next) => {
